@@ -1,0 +1,196 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://smalsusinfolabs.sharepoint.com/sites/Training/Pradeep/Documents/angular.min.js"></script>
+<script src="https://smalsusinfolabs.sharepoint.com/sites/Training/Pradeep/Documents/angular4.js"></script>
+<script src="https://smalsusinfolabs.sharepoint.com/sites/Training/Pradeep/Documents/mytest.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+<div ng-app="myPage" ng-controller="showData" class="container">
+	<!--controller starting section ----------------------------------->
+	<input type="text" placeholder="SEARCH" class="" ng-model="text" style="width:400px;height:40px;"></br>
+	<button type="reset" class="btn btn-info" data-toggle="modal" data-target="#addpopup">Add-EMPLOYEE</button>
+	<table class="table table-bordered">
+
+		<tr>
+			<th><label ng-model="search.ID" align="center">ID</label>
+				<div class="sorting_icon">
+					<!--for sorting column-------------------------------------------------->
+					<span>
+						<i class="fa fa-angle-down" {{orderBy=='ID'&&reverse}}" aria-hidden="true"
+							ng-click="mySort('ID',true)"></i>
+					</span>
+					<span>
+						<i class="fa fa-angle-up {{orderBy=='ID'&&!reverse}}" aria-hidden="true"
+							ng-click="mySort('ID',false)"></i>
+					</span>
+				</div>
+				<!--end sorting-->
+			</th>
+			<th><label ng-model="search.name" align="center">NAME</label>
+				<div class="sorting_icon">
+					<!--for sorting column-->
+					<span>
+						<i class="fa fa-angle-down" {{orderBy=='name'&&reverse}}" aria-hidden="true"
+							ng-click="mySort('name',true)"></i>
+					</span>
+					<span>
+						<i class="fa fa-angle-up {{orderBy=='name'&&!reverse}}" aria-hidden="true"
+							ng-click="mySort('name',false)"></i>
+					</span>
+				</div>
+				<!--end sorting-->
+			</th>
+			<th><label ng-model="search.department" align="center">DEPARTMENT</label>
+				<div class="sorting_icon">
+					<!--for sorting column-->
+					<span>
+						<i class="fa fa-angle-down" {{orderBy=='department'&&reverse}}" aria-hidden="true"
+							ng-click="mySort('department',true)"></i>
+					</span>
+					<span>
+						<i class="fa fa-angle-up {{orderBy=='department'&&!reverse}}" aria-hidden="true"
+							ng-click="mySort('department',false)"></i>
+					</span>
+				</div>
+				<!--end sorting-->
+			</th>
+			<th><label ng-model="search.designation" align="center">DESIGNATION<label>
+						<div class="sorting_icon">
+							<!--for sorting column-->
+							<span>
+								<i class="fa fa-angle-down" {{orderBy=='designation'&&reverse}}" aria-hidden="true"
+									ng-click="mySort('designation',true)"></i>
+							</span>
+							<span>
+								<i class="fa fa-angle-up {{orderBy=='designation'&&!reverse}}" aria-hidden="true"
+									ng-click="mySort('designation',false)"></i>
+							</span>
+						</div>
+						<!--end sorting-->
+			</th>
+			<th><label ng-model="search.salary" align="center">SALARY</label>
+				<div class="sorting_icon">
+					<!--for sorting column-->
+					<span>
+						<i class="fa fa-angle-down" {{orderBy=='salary'&&reverse}}" aria-hidden="true"
+							ng-click="mySort('salary',true)"></i>
+					</span>
+					<span>
+						<i class="fa fa-angle-up {{orderBy=='salary'&&!reverse}}" aria-hidden="true"
+							ng-click="mySort('salary',false)"></i>
+					</span>
+				</div>
+				<!--end sorting-->
+			</th>
+		</tr>
+
+		<tr ng-repeat="item in employee | filter:text | filter:search | orderBy:orderBy:reverse">
+			<td>{{item.ID}}</td>
+			<!--<td>{{item.empid}}</td>-->
+			<td>{{item.name}}</td>
+			<td>{{item.department}}</td>
+			<td>{{item.designation}}</td>
+			<td>{{item.salary}}</td>
+			<td><button type="button" class="btn btn-danger" ng-click="removeData(item.ID)">DELETE</button></td>
+
+			<td><button type="button" value="Edit" class="btn btn-success" data-toggle="modal" data-target="#editpopup"
+					ng-click="editData(item)" />Edit</td>
+
+
+		</tr>
+
+	</table>
+	<!--end dynamic list -->
+
+
+	<div id="addpopup" class="modal fade">
+		<!--start addpopup ------------------------------------------------------->
+		<div class="form-row modal-dialog modal-lg ">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!--	
+				<div class="col-md-6 ">
+					<label for="inputEmail4">EMPLOYEE ID</label>
+						<input type="text" class="form-control" id="inputEmail4" ng-model="Empid">
+				</div>-->
+
+					<div class="col-md-6 modal-body">
+						<label for="inputPassword4">EMPLOYEE NAME</label>
+						<input type="text" class="form-control" id="inputPassword4" ng-model="Name">
+					</div>
+
+					<div class="col-md-6">
+						<label for="inputEmail4">EMPLOYEE DEPARTMENT</label>
+						<input type="text" class="form-control" id="inputEmail4" ng-model="Department">
+					</div>
+
+					<div class="col-md-6 ">
+						<label for="inputPassword4">EMPLOYEE DESIGNATION</label>
+						<input type="text" class="form-control" id="inputPassword4" ng-model="Designation">
+					</div>
+
+					<div class="col-md-6">
+						<label for="inputPassword4">EMPLOYEE SALARY</label>
+						<input type="text" class="form-control" id="inputPassword4" ng-model="Salary">
+					</div>
+
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-secondary" data-dismiss="modal"
+							ng-click="addEmployee()">Save</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--addpopup ending-->
+
+
+	<div id="editpopup" class="modal fade">
+		<!--start editpopup ---------------------------------------------------->
+		<div class="form-row modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-body">
+
+					<!--<div class="col-md-6">
+					<label for="inputEmail4">EMPLOYEE ID</label>
+						<input type="text" class="form-control" id="inputEmail4" ng-model="Empid" >
+					</div>-->
+
+					<div class="col-md-6">
+						<label for="inputPassword4">EMPLOYEE NAME</label>
+						<input type="text" class="form-control" id="inputPassword4" ng-model="Name">
+					</div>
+
+
+					<div class="col-md-6">
+						<label for="inputEmail4">EMPLOYEE DEPARTMENT</label>
+						<input type="text" class="form-control" id="inputEmail4" ng-model="Department">
+					</div>
+
+					<div class="col-md-6">
+						<label for="inputPassword4">EMPLOYEE DESIGNATION</label>
+						<input type="text" class="form-control" id="inputPassword4" ng-model="Designation">
+					</div>
+
+
+					<div class="col-md-6">
+						<label for="inputPassword4">EMPLOYEE SALARY</label>
+						<input type="text" class="form-control" id="inputPassword4" ng-model="Salary">
+					</div>
+
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-secondary" data-dismiss="modal"
+							ng-click="updateData(item.ID)">save</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--editpopup ending-->
+</div>
+<!--controller ending-->
